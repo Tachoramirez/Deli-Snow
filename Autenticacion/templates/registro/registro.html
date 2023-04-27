@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} REGISTRO {% endblock %}
+{% block content %} 
+<div class="section">
+    <div class="container">
+        <div class="card">
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="card-content">
+                    {{form}}
+                </div>
+                <div class="card-action">
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Registrarse
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+    
+{% endblock %}

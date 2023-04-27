@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} DeliSnow {% endblock %}
+{% block content %}
+
+
+
+<div class="container">
+    
+    <br>
+    <ul class="tabs abs-fixed-width tab-demo z-depth-1">
+        {% for categoria in categorias %}
+        <li class="tab col s3"><a href="#{{ categoria.nombre }}">{{ categoria.nombre }}</a></li>
+        {% endfor %}
+    </ul>
+    <div class="tab-content">
+        {% for categoria in categorias %}
+        
+        <div id="{{ categoria.nombre }}" class="col s12">
+            <div class="row">
+                <blockquote ><h3>{{categoria.nombre}}</h3></blockquote>
+                {% for producto in productos %}
+                    {% if producto.categoria == categoria %}
+                    <div class="col s12 m4">
+                        <div class="card small">
+                            {% if producto.imagen %}
+                                <div class="card-image">
+                                    <img style="max-height: 500px !important; max-width: 500px !important;" src="{{producto.imagen.url}}">
+                                    <a>$ {{producto.precio}}</a>
+                                </div>
+                            {% else %}
+                                <div class="card-image">
+                                    <img style="max-height: 250px !important; max-width: 500px !important;" src="{% static 'img/defaults/noimage.png' %}"> 
+                                    <a>$ {{producto.precio}}</a>
+                                </div>
+                            {% endif %}
+                            <div class="card-content">
+                                <span class="card-title">{{ producto.nombre }}{{producto.cantidad}}</span>
+                                <p>{{ producto.descripcion }}</p>
+                            </div>
+                            <div class="card-action">
+                                <a class="modal-trigger"  href="#{{producto.nombre}}">Ver producto</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        
+        {% endfor %}    
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static '/css/style.css/' %}">
+    <link rel="stylesheet" href="{% static '/css/materialize.min.css/' %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+    <script src="{% static '/js/materialize.min.js/' %}"></script>
+
+    <title>{% block title%}{% endblock %}</title>
+</head>
+<body class=" purple lighten-5">
+    <div class="navbar-fixed">
+        <nav class="white">
+            <div class="nav-wrapper">
+                <div class="container">
+                    <a href="{% url 'Inicio'%}" class="brand-logo black-text">DELISNOW</a>
+                    <a href="#" data-target="menu-movil" class="sidenav-trigger"><i style="color: black;" class="medium material-icons">menu</i></a>
+                    <ul class="right hide-on-med-and-down">
+                        <li ><a class="black-text modal-trigger" href="#modal1">Contacto</a></li>
+                        {% if user.is_authenticated and user.is_superuser == 1 %}
+                        <li ><a class="black-text" href="{% url 'Inicio' %}">Productos</a></li>
+                        <li ><a class="black-text" href="{% url 'Clientes' %}">Clientes</a></li>
+                        <li><a class="green-text lighten-1 dropdown-trigger" data-target="dropdown1">{{user.username}}<i class="material-icons right">arrow_drop_down</i></a></li>
+                        <li><a href="{% url 'Salir' %}"  class="red-text lighten-1">Cerrar sesión</a></li>
+                        {% elif user.is_authenticated and user.is_superuser == 0 %}
+                        <li><a class="green-text lighten-1" href="" title="Ver perfil">{{user.username}}</a></li>
+                        <li><a href="{% url 'Salir' %}"  class="red-text lighten-1">Cerrar sesión</a></li>
+                        {% else %}
+                        <li><a class="black-text" href="{% url 'Login' %}" >INICIAR SESIÓN</a></li>
+                        <li><a  class="green-text lighten-1" href="{% url 'Autenticacion' %}">REGISTRARSE</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!--Dropdown structure-->
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a href="#!">Perfil</a></li>
+        <li><a href="{% url 'admin:index' %}">Administrar</a></li>
+    </ul>
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+        <h2>DeliSnow</h2>
+        <div class="divider"></div>
+        <div class="section"><p>Fundadora: Ma Nieves Trujillo Tapia</p></div>
+        <div class="divider"></div>
+        <div class="section"><p>Correo: niviestrujillo@gmail.com</p></div>
+        <div class="divider"></div>
+        <div class="section"><p style="font-size: 20px;">Puede realizar sus pedidos al correo, estamos trabajando para automatizar tu experiencia.</p></div>
+        
+        <hr></hr>
+        
+        </div>
+        <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect red btn ">Cerrar</a>
+        </div>
+    </div>
+
+
+    <!--Inicia sección de barra lateral-->
+    <ul id="menu-movil" class="sidenav">
+        <li><div class="user-view">
+                <div class="background">
+                    <img src="static/img/postre-de-vainilla.jpg">
+                </div>
+                <a href="#user"><img class="circle" src="static/img/foto.jpeg"></a>
+                <a href="#name"><span class="white-text name">John Doe</span></a>
+                <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
+            </div>
+        </li>
+        <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+        <li><a href="#!">Second Link</a></li>
+        <li><div class="divider"></div></li>
+        <li><a class="subheader">Subheader</a></li>
+        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+    </ul>
+    <!--Termina sección de barra lateral-->
+    {% block content %} {% endblock %}
+</body>
+
+
+<script>
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.parallax');
+    var instances = M.Parallax.init(elems);
+});
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.sidenav');
+    var instances = M.Sidenav.init(elems);
+});
+document.addEventListener('DOMContentLoaded', function() {
+    var tabs = document.querySelectorAll('.tabs');
+    M.Tabs.init(tabs);
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    var opcionesModal = {
+    // Agrega otras opciones aquí
+    };
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(document.getElementById('modal1'), opcionesModal);
+    
+});
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems, options);
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.dropdown-trigger');
+    var instances = M.Dropdown.init(elems);
+});
+</script>
+</html>
